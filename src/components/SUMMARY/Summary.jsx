@@ -14,7 +14,7 @@ export default function Summary({ answers, start }) {
     (100 / 7) * answers.filter((answer) => answer.status === "wrong").length
   );
 
-  const maxValue = Math.max(answersSkippedPercent,answersCorrectPercent,answersWrongPercent);
+  let maxValue = Math.max(answersSkippedPercent,answersCorrectPercent,answersWrongPercent);
 
   return (
     <div id="summary">
