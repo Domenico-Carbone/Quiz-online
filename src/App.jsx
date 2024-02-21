@@ -2,6 +2,7 @@ import Header from "./components/Header";
 import Summary from "./components/SUMMARY/Summary";
 import Quiz from "./components/QUIZ/Quiz";
 import StartButton from "./components/StartButton";
+import questions from "./questions";
 import { useState } from "react";
 
 function App() {
@@ -9,7 +10,7 @@ function App() {
   const [start, setStart] = useState(false);
 
   function setComplited(answers) {
-    setAnswers([...answers]);
+    setAnswers((prevAnswers)=>[...prevAnswers, answers]);
   }
 
   function handleStart(){
@@ -26,7 +27,7 @@ function App() {
       <Header />
       {!start 
       ? <StartButton start={handleStart} /> 
-      : (answers.length === 7 
+      : (answers.length === questions.length 
       ? <Summary answers={answers}  start={handleStartBack} />
       : <Quiz complete={setComplited} />)
       }

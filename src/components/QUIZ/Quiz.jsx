@@ -7,24 +7,20 @@ const TIMER = 10000;
 export default function Quiz({ complete }) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [remainingTime, setRemainingTime] = useState(TIMER);
-  const [answers, setAnswers] = useState([]);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setRemainingTime((prevTime) => prevTime - 10);
-
-      return () => {
-        clearInterval(interval);
-      };
     }, 10);
+  
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
 
   useEffect(() => {
     if (remainingTime <= 0) {
-      setAnswers((prevAnswers) => [
-        ...prevAnswers,
-        { text: "skipped", status: "skipped" },
-      ]);
+      complete({ text: "skipped", status: "skipped" });
       goToNextQuestion();
     }
   }, [remainingTime]);
@@ -50,7 +46,7 @@ export default function Quiz({ complete }) {
       text: answer,
       status: isCorrect ? "correct" : "wrong",
     };
-    setAnswers((prevAnswers) => [...prevAnswers, answerObject]);
+    complete(answerObject);
     goToNextQuestion();
   };
 
@@ -58,7 +54,7 @@ export default function Quiz({ complete }) {
 
   return (
     <>
-      {currentQuestionIndex < questions.length ? (
+      {currentQuestionIndex < questions.length && (
         <div id="quiz">
           <div id="question">
             <Progress remainingTime={remainingTime} timer={TIMER} />
@@ -74,8 +70,6 @@ export default function Quiz({ complete }) {
             </div>
           </div>
         </div>
-      ) : (
-        complete(answers)
       )}
     </>
   );
