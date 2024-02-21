@@ -10,14 +10,15 @@ function App() {
   const [start, setStart] = useState(false);
 
   function setComplited(answers) {
-    setAnswers((prevAnswers)=>[...prevAnswers, answers]);
+    setAnswers((prevAnswers) => [...prevAnswers, answers]);
+    console.log(answers);
   }
 
-  function handleStart(){
+  function handleStart() {
     setStart(true);
   }
 
-  function handleStartBack(){
+  function handleStartBack() {
     setStart(false);
     setAnswers([]);
   }
@@ -25,12 +26,13 @@ function App() {
   return (
     <>
       <Header />
-      {!start 
-      ? <StartButton start={handleStart} /> 
-      : (answers.length === questions.length 
-      ? <Summary answers={answers}  start={handleStartBack} />
-      : <Quiz complete={setComplited} />)
-      }
+      {!start ? (
+        <StartButton start={handleStart} />
+      ) : answers.length === questions.length ? (
+        <Summary answers={answers} start={handleStartBack} />
+      ) : (
+        <Quiz complete={setComplited} />
+      )}
     </>
   );
 }

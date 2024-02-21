@@ -19,14 +19,12 @@ export default function Quiz({ complete }) {
   }, []);
 
   useEffect(() => {
-    if (remainingTime <= 0) {
-      complete({ text: "skipped", status: "skipped" });
-      goToNextQuestion();
-    }
-  }, [remainingTime]);
-
-  useEffect(() => {
     const timer = setTimeout(() => {
+      const answerSkipped = {
+        text: "skipped", 
+        status: "skipped" 
+      }
+      complete(answerSkipped);
       goToNextQuestion();
     }, TIMER);
 
