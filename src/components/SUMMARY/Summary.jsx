@@ -14,19 +14,27 @@ export default function Summary({ answers, start }) {
     (100 / 7) * answers.filter((answer) => answer.status === "wrong").length
   );
 
+  const maxValue = Math.max(answersSkippedPercent,answersCorrectPercent,answersWrongPercent);
+
   return (
     <div id="summary">
       <img src={imgQuizComplete} alt="quiz-complete" />
       <h2>QUIZ COMPLETED!</h2>
       <div id="summary-stats">
-        <SummaryStats text={"SKIPPED"} stats={answersSkippedPercent} />
+        <SummaryStats 
+          text={"SKIPPED"} 
+          stats={answersSkippedPercent} 
+          max={maxValue} 
+        />
         <SummaryStats
           text={"ANSWERED CORRECTLY"}
           stats={answersCorrectPercent}
+          max={maxValue}
         />
         <SummaryStats
           text={"ANSWERED INCORRECTLY"}
           stats={answersWrongPercent}
+          max={maxValue}
         />
       </div>
 
